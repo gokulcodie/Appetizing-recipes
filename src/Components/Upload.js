@@ -35,7 +35,7 @@ import {Link,useHistory} from 'react-router-dom'
 import {CardComp} from './Card'
 import { useRecipe,RecipeProvider } from '../Contexts/RecipeProvider';
 import MuiAlert from '@mui/material/Alert';
-
+import { InnerGrid } from './InnerGrid';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert sx={{mb:3}} elevation={6} ref={ref} variant="filled" {...props} />;
@@ -245,7 +245,7 @@ export function Uploads() {
                     currentUser?.displayName === 'Gokul L' ||
                     currentUser?.email === 'skillgallery75@gmail.com'
             )?
-            "Admin" : "your uploads"} {...a11yProps(1)} />
+            "Admin" : "my uploads"} {...a11yProps(1)} />
       </Tabs>
     </Box>
     <TabPanel value={value} index={0}>
@@ -457,48 +457,47 @@ export function Uploads() {
                      ?
         <Grid container spacing={2} >
           {recipeList.map((item)=>(
-        <Grid item xs={12} sm={6} md={4}>
+             <Grid item xs={12} sm={6} md={4} key={item.id}>
         <CardComp
-          recipeId={item.id} 
-          uploaderPic={(item?.profilePhotoUrl)?item.profilePhotoUrl:null}
-         
-          uploadDate={item.timeStamp} 
-          uploaderName={item.userName}
+          recipeId={item.id}
           uploaderEmail={item.email}
-          photoUrl={item.photoUrl}
-          videoUrl={item.videoUrl}
+          uploaderPic={(item?.profilePhotoUrl)?item.profilePhotoUrl:null}
+          uploadDate={item.timeStamp} 
+          uploaderName={item.userName} 
+          photoUrl={item.photoUrl} 
+          videoUrl={item.videoUrl} 
           recipeTitleData={item.recipeTitleData}
           recipeTypeData={item.recipeTypeData}
           ingredients={item.ing}
           stepss={item.steps}
-          deletable={true}
-          editable={true}
-         />
+          deletable={true}/* 
+          editable={true} */
+          />
         </Grid>
        ))}
      </Grid>
                      :
          <Grid container spacing={2} >
           {recipeList.filter((it)=>it.email === currentUser?.email).map((item)=>(
-        <Grid item xs={12} sm={6} md={4}>
+             <Grid item xs={12} sm={6} md={4} key={item.id}>
         <CardComp
-          recipeId={item.id} 
+          recipeId={item.id}
+          uploaderEmail={item.email}
           uploaderPic={(item?.profilePhotoUrl)?item.profilePhotoUrl:null}
           uploadDate={item.timeStamp} 
-          uploaderName={item.userName}
-          uploaderEmail={item.email}
-          photoUrl={item.photoUrl}
-          videoUrl={item.videoUrl}
+          uploaderName={item.userName} 
+          photoUrl={item.photoUrl} 
+          videoUrl={item.videoUrl} 
           recipeTitleData={item.recipeTitleData}
           recipeTypeData={item.recipeTypeData}
           ingredients={item.ing}
           stepss={item.steps}
-          deletable={true}
-          editable={true}
-         />
+          deletable={true}/* 
+          editable={true} */
+          />
         </Grid>
-       ))}
-     </Grid>
+         ))}
+         </Grid>
       }    
       </TabPanel>
     </>

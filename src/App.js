@@ -18,7 +18,8 @@ function App() {
             <NavbarComp/>
           <Switch>
             <Route path="/" exact component={()=><GridComp/>}/>
-            <Route path="/myuploads" component={()=><Uploads/>}/>
+            <Route path="/my uploads" component={()=><Uploads/>}/>
+            <Route path="/admin" component={()=><Uploads/>}/>
             <Route path="/login" component={()=><Login/>}/>
             <Route path="/signup" component={()=><Signup/>}/>{/* 
             <Route path="/wishlist" component={()=><Wishlist/>}/> */}

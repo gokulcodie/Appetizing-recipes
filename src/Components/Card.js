@@ -42,8 +42,14 @@ import {useAuth , AuthProvider} from '../Contexts/AuthProvider'
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import {recipeList,useRecipe} from '../Contexts/RecipeProvider'
 import { Edit } from '@mui/icons-material';
-import { Rating,Grid, ButtonBase} from '@mui/material';
+import { Rating,Grid, ButtonBase, DialogContent} from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Dialog from '@mui/material/Dialog';
+
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import CloseIcon from '@mui/icons-material/Close';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   
@@ -148,6 +154,45 @@ export  function CardComp(
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
+
   
   const isVideo =(videoUrl === '')?
   <>
@@ -193,6 +238,15 @@ export  function CardComp(
      console.log("remove user id:"+uid)
      setWish(false)
   }
+
+   const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 /*  
    useEffect(()=>{
      if(wish == true){
@@ -288,8 +342,30 @@ export  function CardComp(
          {
           (deletable == true)?
           <Fab color="primary" aria-label="add">
-        <DeleteIcon onClick={()=>handleDeleteRecipe(recipeId)}/>
-      </Fab> 
+          <DeleteIcon onClick={handleClickOpen}/>
+            {/* <Button variant="outlined">
+              delete
+            </Button> */}
+            <BootstrapDialog
+              onClose={handleClose}
+              aria-labelledby="customized-dialog-title"
+              open={open}
+            >
+              <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+               confirm delete 
+              </BootstrapDialogTitle>
+              <DialogContent dividers>
+                <Typography gutterBottom>
+                  Are you sure you want to delete '{recipeTitleData}'?
+                </Typography>
+              </DialogContent>
+              <DialogActions>
+                <Button autoFocus onClick={()=>handleDeleteRecipe(recipeId)}>
+                  delete
+                </Button>
+              </DialogActions>
+            </BootstrapDialog>
+          </Fab> 
           :
           <></>
         }
@@ -332,7 +408,8 @@ export  function CardComp(
                 1,12,000 ratings
               </Typography>
           </Grid>  */}
-       <Grid>
+       </Grid>
+              <Grid>
                        <CardHeader
                 avatar={
                   (uploaderPic === null)?
@@ -345,7 +422,6 @@ export  function CardComp(
                 title={(uploaderName === '')?uploaderEmail:uploaderName}
                 subheader={uploadDate}
               />
-       </Grid>
        </Grid>
     </Paper>
     </Card>
