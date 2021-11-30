@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react"
 import {onSnapshot,collection,setDoc,doc,addDoc,deleteDoc} from '@firebase/firestore';
 import db from '../Firebase'
 import { TryOutlined } from "@mui/icons-material";
+import { Offline } from "react-detect-offline";
 
 
 const RecipeContext = React.createContext()
@@ -31,7 +32,8 @@ export  function RecipeProvider({ children }) {
     const value={
         recipeList,
         updateRecipeSearch,
-        recipeSearch
+        recipeSearch,
+        setRecipeList
     }
     return (
     <RecipeContext.Provider value={value}>

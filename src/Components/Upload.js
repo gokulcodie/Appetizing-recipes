@@ -16,7 +16,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Icon from '@mui/material/Icon';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
-
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -24,7 +23,6 @@ import Divider from '@mui/material/Divider';
 import Tab from '@mui/material/Tab';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-
 import {onSnapshot,collection,setDoc,doc,addDoc,deleteDoc} from '@firebase/firestore';
 import db from '../Firebase' 
 import GridComp from './GridComp';
@@ -35,7 +33,6 @@ import {Link,useHistory} from 'react-router-dom'
 import {CardComp} from './Card'
 import { useRecipe,RecipeProvider } from '../Contexts/RecipeProvider';
 import MuiAlert from '@mui/material/Alert';
-import { InnerGrid } from './InnerGrid';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert sx={{mb:3}} elevation={6} ref={ref} variant="filled" {...props} />;
@@ -82,6 +79,7 @@ function TabPanel(props) {
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
+          
         </Box>
       )}
     </div>

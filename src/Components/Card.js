@@ -42,13 +42,22 @@ import {useAuth , AuthProvider} from '../Contexts/AuthProvider'
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import {recipeList,useRecipe} from '../Contexts/RecipeProvider'
 import { Edit } from '@mui/icons-material';
-import { Rating,Grid, ButtonBase, DialogContent} from '@mui/material';
+import { Rating,Grid, ButtonBase, DialogContent, Chip} from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Dialog from '@mui/material/Dialog';
 
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
+
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ImageIcon from '@mui/icons-material/Image';
+import WorkIcon from '@mui/icons-material/Work';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import Divider from '@mui/material/Divider';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -275,18 +284,26 @@ BootstrapDialogTitle.propTypes = {
             src={photoUrl}
           />
               <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Recipe Title
-              </Typography>
-              <Typography variant="h6" component="div">
-                {recipeTitleData}
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                Type
-              </Typography>
-              <Typography variant="h6" component="div">
-                   {recipeTypeData}
-              </Typography>
+            <List
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+      }}
+    >
+      <Divider  component="li" />
+      <ListItem>
+        {/* <ListItemAvatar>
+          <Avatar>
+            <WorkIcon />
+          </Avatar>
+        </ListItemAvatar> */}
+      <ListItemText primary={recipeTitleData} secondary={recipeTypeData} />
+      
+      </ListItem>
+      <Divider  component="li" />
+    </List>
+
             </CardContent>
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -413,7 +430,7 @@ BootstrapDialogTitle.propTypes = {
                        <CardHeader
                 avatar={
                   (uploaderPic === null)?
-                  <Avatar sx={{ width: 32, height: 32 }} aria-label="recipe">
+                  <Avatar sx={{ width: 52, height: 52 }} aria-label="recipe">
                   </Avatar>
                   :
                   <Avatar  src={uploaderPic} sx={{ width: 52, height: 52 }} aria-label="recipe">

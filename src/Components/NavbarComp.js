@@ -225,9 +225,9 @@ const handleClose = () => {
             >
                 
                 {(currentUser?.photoURL)?
-                 <Avatar src={currentUser.photoURL} sx={{ width: 42, height: 42 }}>M</Avatar>
+                 <Avatar src={currentUser.photoURL} sx={{fontSize:38 }}></Avatar>
                  :
-                <AccountCircle />
+                <AccountCircle sx={{fontSize:38}}/>
                 }
             </IconButton>
             <Menu

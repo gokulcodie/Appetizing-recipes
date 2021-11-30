@@ -5,14 +5,16 @@ import { useRecipe,RecipeProvider } from '../Contexts/RecipeProvider';
 import RecipeSearch from './RecipeSearch';
 import Alert from '@mui/material/Alert';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
-import { InnerGrid } from './InnerGrid';
 import LoadingComp from './LoadingComp';
-
+import '../loader.css'
+import SkeletonComp from './SkeletonComp';
+import { Offline ,Online} from 'react-detect-offline';
 
 export default function GridComp() {
-  const {recipeList,recipeSearch} = useRecipe()
-  const empty=[]
+  const {recipeList,recipeSearch,setRecipeList} = useRecipe()
 
+  const empty=[]
+  
   return (
     <>
     <RecipeSearch/>
@@ -45,8 +47,7 @@ export default function GridComp() {
      {  
      /* Array.isArray(recipeList ) && empty.length */
        (recipeList.length === 0)?
-
-        <LoadingComp />
+        <LoadingComp/>
        :
        recipeList.map((item)=>(
         <Grid item xs={12} sm={6} md={4} key={item.id}>
